@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <div className="navbar bg-primary fixed py-2 z-50 shadow-sm">
+    <div className="navbar bg-base-100 fixed py-2 z-50 shadow-sm">
       <div className="navbar-start">
         {/* dropdown < 1024 */}
         <div className="dropdown">
@@ -37,10 +37,12 @@ const Navbar = () => {
           </ul>
         </div>
         {/* dropdown < 1024 */}
-        <a className="btn btn-ghost font-semibold text-3xl">LearnBy DOING</a>
+        <a className="btn btn-ghost text-primary font-bold text-3xl">
+          LearnBy DOING
+        </a>
       </div>
       <div className="navbar-end lg:mx-5 hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal space-x-5 px-5">
           <li>
             <a className="text-lg">Services</a>
           </li>
@@ -51,7 +53,7 @@ const Navbar = () => {
             <a className="text-lg">Contact Us</a>
           </li>
         </ul>
-        <a className="btn text-lg">Button</a>
+        <a className="btn btn-primary text-lg">Button</a>
       </div>
     </div>
   );
