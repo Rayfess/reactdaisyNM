@@ -1,7 +1,17 @@
+import { useState } from "react";
 import { Sidebar, SidebarController } from "./Sidebar";
 import ThemeController from "./ThemeController";
 
 const Navbar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -27,10 +37,13 @@ const Navbar = () => {
             </ul>
             <a className="btn btn-primary text-lg lg:me-5">Get Started</a>
           </div>
-          <SidebarController />
+          <SidebarController
+            onToggle={handleToggleSidebar}
+            isOpen={isSidebarOpen}
+          />
         </div>
       </div>
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
     </div>
   );
 };
