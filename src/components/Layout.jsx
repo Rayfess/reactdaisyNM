@@ -1,14 +1,32 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // ✅ DEBUG: Log state changes
+  console.log("🔵 [Layout] sidebarOpen state:", sidebarOpen); //false
+
   useEffect(() => {
-    const drawer = document.getElementById("my-drawer");
-    if (drawer) drawer.checked = sidebarOpen;
-  }, [sidebarOpen]);
+    const drawerCheckbox = document.getElementById("my-drawer");
+    console.log(
+      "🟡 [Layout/useEffect] Syncing to DaisyUI. Checkbox exists:",
+      !!drawerCheckbox
+    );
+
+    if (drawerCheckbox) {
+      console.log(
+        "🟢 [Layout/useEffect] Before sync - checkbox.checked:",
+        drawerCheckbox.checked
+      );
+      drawerCheckbox.checked = sidebarOpen;
+      console.log(
+        "🟢 [Layout/useEffect] After sync - checkbox.checked:",
+        drawerCheckbox.checked
+      );
+    }
+  }, [sidebarOpen]); //false
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,8 +39,18 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [sidebarOpen]);
 
-  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-  const closeSidebar = () => setSidebarOpen(false);
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen((prev) => !prev);
+    console.log(
+      "🔄 [Layout] toggleSidebar called. Current state:",
+      sidebarOpen
+    );
+  }, [sidebarOpen]);
+
+  const closeSidebar = useCallback(() => {
+    setSidebarOpen(false);
+    console.log("❌ [Layout] closeSidebar called");
+  }, []);
 
   return (
     <div className="drawer drawer-end">

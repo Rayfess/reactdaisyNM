@@ -1,4 +1,27 @@
 const Navbar = ({ onToggle, sidebarOpen }) => {
+  console.log("🔵 [Navbar] Received props:", {
+    onToggle,
+    sidebarOpen,
+    isOnToggleFunction: typeof onToggle === "function",
+  });
+  const handleToggle = () => {
+    console.log("🔄 [Navbar] Toggle button clicked");
+
+    if (typeof onToggle === "function") {
+      onToggle();
+    } else {
+      console.error(
+        "❌ [Navbar] onToggle is not a function! Received:",
+        onToggle
+      );
+      // Fallback: try to manually toggle the drawer
+      const drawer = document.getElementById("my-drawer");
+      if (drawer) {
+        drawer.checked = !drawer.checked;
+        console.log("🔄 [Navbar] Manual drawer toggle attempted");
+      }
+    }
+  };
   return (
     <nav className="navbar bg-base-100 fixed top-0 z-50 shadow-sm w-full">
       <div className="flex-1">
@@ -22,10 +45,17 @@ const Navbar = ({ onToggle, sidebarOpen }) => {
       <div className="lg:hidden">
         <button
           className="btn btn-square btn-ghost swap swap-rotate"
-          onClick={onToggle}
+          onClick={handleToggle}
           aria-label={sidebarOpen ? "Close menu" : "Open menu"}
         >
-          <input type="checkbox" checked={sidebarOpen} readOnly />
+          <input
+            type="checkbox"
+            checked={sidebarOpen}
+            onChange={(e) =>
+              console.log("📦 [Navbar] Checkbox onChange:", e.target.checked)
+            }
+            readOnly
+          />
 
           {/* hamburger icon */}
           <svg
@@ -35,6 +65,7 @@ const Navbar = ({ onToggle, sidebarOpen }) => {
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
+            onClick={() => console.log("🍔 [Navbar] Hamburger icon clicked")}
             viewBox="0 0 512 512"
           >
             <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
