@@ -6,6 +6,7 @@ import Layout from "./components/Layout.jsx";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Sample = lazy(() => import("./components/Sample.jsx"));
+
 const App = () => {
   return (
     <Router>
