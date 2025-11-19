@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className="drawer drawer-end">
@@ -12,15 +14,15 @@ const Layout = ({ children }) => {
         type="checkbox"
         className="drawer-toggle"
         checked={sidebarOpen}
-        onChange={() => setSidebarOpen(!sidebarOpen)}
+        onChange={toggleSidebar}
       />
 
       <div className="drawer-content">
-        <Navbar onToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <Navbar onToggle={toggleSidebar} sidebarOpen={sidebarOpen} />
         <main className="pt-16">{children}</main>
       </div>
 
-      <Sidebar onClose={() => setSidebarOpen(false)} />
+      <Sidebar onClose={closeSidebar} />
     </div>
   );
 };
