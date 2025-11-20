@@ -1,33 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // ✅ DEBUG: Log state changes
-  console.log("🔵 [Layout] sidebarOpen state:", sidebarOpen); //false
+  console.log("🔵 [Layout] sidebarOpen state:", sidebarOpen);
 
-  useEffect(() => {
-    const drawerCheckbox = document.getElementById("my-drawer");
-    console.log(
-      "🟡 [Layout/useEffect] Syncing to DaisyUI. Checkbox exists:",
-      !!drawerCheckbox
-    );
+  const toggleSidebar = useCallback(() => {
+    console.log("🔄 [Layout] toggleSidebar called");
+    setSidebarOpen((prev) => !prev);
+  }, []);
 
-    if (drawerCheckbox) {
-      console.log(
-        "🟢 [Layout/useEffect] Before sync - checkbox.checked:",
-        drawerCheckbox.checked
-      );
-      drawerCheckbox.checked = sidebarOpen;
-      console.log(
-        "🟢 [Layout/useEffect] After sync - checkbox.checked:",
-        drawerCheckbox.checked
-      );
-    }
-  }, [sidebarOpen]); //false
+  const closeSidebar = useCallback(() => {
+    console.log("❌ [Layout] closeSidebar called");
+    setSidebarOpen(false);
+  }, []);
 
+  // Keep resize behavior: automatically close drawer on large screens
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024 && sidebarOpen) {
@@ -39,24 +29,22 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [sidebarOpen]);
 
-  const toggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev);
-    console.log(
-      "🔄 [Layout] toggleSidebar called. Current state:",
-      sidebarOpen
-    );
-  }, [sidebarOpen]);
-
-  const closeSidebar = useCallback(() => {
-    setSidebarOpen(false);
-    console.log("❌ [Layout] closeSidebar called");
-  }, []);
-
   return (
     <div className="drawer drawer-end">
-      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      {/* Controlled checkbox: React is single source of truth */}
+      <input
+        id="my-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={sidebarOpen}
+        onChange={(e) => setSidebarOpen(e.target.checked)}
+      />
 
       <div className="drawer-content">
+        {console.log("🔁 [Layout] Passing props to Navbar:", {
+          toggleSidebarExists: !!toggleSidebar,
+          toggleSidebarType: typeof toggleSidebar,
+        })}
         <Navbar onToggle={toggleSidebar} sidebarOpen={sidebarOpen} />
         <main className="pt-16">{children}</main>
       </div>
