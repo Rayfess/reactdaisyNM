@@ -1,9 +1,15 @@
-const ThemeController = () => {
+const ThemeController = ({ onTheme, currentTheme }) => {
   return (
     <div className="btn btn-ghost btn-circle size-12 mx-5">
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
-        <input type="checkbox" className="theme-controller" value="synthwave" />
+        <input
+          type="checkbox"
+          checked={currentTheme === "dark"}
+          className="theme-controller"
+          onChange={onTheme}
+          aria-label="Toggle theme"
+        />
         {/* sun icon */}
         <svg
           className="swap-off size-5 fill-current"

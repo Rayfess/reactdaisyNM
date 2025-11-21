@@ -1,17 +1,30 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev);
+  const [theme, setTheme] = useState("default");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "default" ? "dark" : "light";
+    setTheme(newTheme);
+
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
+  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
+
+  const closeSidebar = () => setSidebarOpen(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,8 +48,16 @@ const Layout = ({ children }) => {
       />
 
       <div className="drawer-content">
-        <Navbar onToggle={toggleSidebar} sidebarOpen={sidebarOpen} />
-        <main className="pt-16">{children}</main>
+        <Navbar
+          onToggle={toggleSidebar}
+          sidebarOpen={sidebarOpen}
+          onTheme={toggleTheme}
+          currentTheme={theme}
+        />
+        <main className="pt-16">
+          {children}
+          <Footer />
+        </main>
       </div>
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
     </div>

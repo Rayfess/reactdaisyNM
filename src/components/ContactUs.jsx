@@ -1,6 +1,6 @@
 const ContactUs = () => {
   return (
-    <div className=" bg-base-200 min-h-screen mx-auto pt-30">
+    <div className=" bg-base-200 min-h-screen mx-auto py-30">
       <div className="container flex items-center flex-col mx-auto">
         <h1 className="text-center text-5xl font-semibold mb-5">Contact Us</h1>
         <div className="container lg:w-1/2 md:w-2/3">

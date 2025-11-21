@@ -1,6 +1,6 @@
 import ThemeController from "./ThemeController";
 
-const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
+const Navbar = ({ onToggle, sidebarOpen, onTheme, currentTheme }) => {
   return (
     <nav className="navbar bg-base-100 fixed z-50 shadow-sm w-full">
       <div className="flex-1">
@@ -21,7 +21,7 @@ const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
         </ul>
       </div>
 
-      <ThemeController />
+      <ThemeController onTheme={onTheme} currentTheme={currentTheme} />
 
       <div className="lg:hidden">
         <button

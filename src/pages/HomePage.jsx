@@ -1,5 +1,4 @@
 import ContactUs from "../components/ContactUs";
-import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
@@ -11,7 +10,6 @@ const HomePage = () => {
       <Projects />
       <Services />
       <ContactUs />
-      <Footer />
     </>
   );
 };
