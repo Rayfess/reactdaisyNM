@@ -38,7 +38,6 @@ const Layout = ({ children }) => {
         <Navbar onToggle={toggleSidebar} sidebarOpen={sidebarOpen} />
         <main className="pt-16">{children}</main>
       </div>
-
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
     </div>
   );

@@ -1,3 +1,5 @@
+import ThemeController from "./ThemeController";
+
 const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
   return (
     <nav className="navbar bg-base-100 fixed z-50 shadow-sm w-full">
@@ -18,6 +20,8 @@ const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
           </li>
         </ul>
       </div>
+
+      <ThemeController />
 
       <div className="lg:hidden">
         <button
