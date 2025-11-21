@@ -1,31 +1,6 @@
-import React, { useEffect, useCallback } from "react";
-
 const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
-  // ✅ Debug props when component mounts/updates
-  useEffect(() => {
-    console.log("🔵 [Navbar] Props received:", {
-      hasOnToggle: !!onToggle,
-      onToggleType: typeof onToggle,
-      sidebarOpen,
-      isOnToggleFunction: typeof onToggle === "function",
-    });
-  }, [onToggle, sidebarOpen]);
-
-  const handleToggle = useCallback(() => {
-    console.log("🔄 [Navbar] Toggle button clicked");
-
-    if (typeof onToggle === "function") {
-      onToggle();
-    } else {
-      console.error(
-        "❌ [Navbar] onToggle is not a function! Received:",
-        onToggle
-      );
-    }
-  }, [onToggle]);
-
   return (
-    <nav className="navbar bg-base-100 fixed top-0 z-50 shadow-sm w-full">
+    <nav className="navbar bg-base-100 fixed z-50 shadow-sm w-full">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">MyApp</a>
       </div>
@@ -48,11 +23,10 @@ const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
         <button
           type="button"
           className="btn btn-square btn-ghost"
-          onClick={handleToggle}
+          onClick={onToggle}
           aria-label={sidebarOpen ? "Close menu" : "Open menu"}
           aria-expanded={!!sidebarOpen}
         >
-          {/* Simplified icon toggle without DaisyUI swap */}
           {sidebarOpen ? (
             // Close icon
             <svg
@@ -82,4 +56,4 @@ const Navbar = ({ onToggle = () => {}, sidebarOpen = false }) => {
   );
 };
 
-export default React.memo(Navbar);
+export default Navbar;
