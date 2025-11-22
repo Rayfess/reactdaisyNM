@@ -1,11 +1,17 @@
-const ThemeController = ({ onTheme, currentTheme }) => {
+import React from "react";
+import { THEMES, DEFAULT_THEME } from "../lib/theme";
+
+const ThemeController = ({
+  onTheme = () => {},
+  currentTheme = DEFAULT_THEME,
+}) => {
   return (
     <div className="btn btn-ghost btn-circle size-12 mx-5">
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
         <input
           type="checkbox"
-          checked={currentTheme === "dark"}
+          checked={currentTheme === "dim"}
           className="theme-controller"
           onChange={onTheme}
           aria-label="Toggle theme"
@@ -31,4 +37,4 @@ const ThemeController = ({ onTheme, currentTheme }) => {
   );
 };
 
-export default ThemeController;
+export default React.memo(ThemeController);
