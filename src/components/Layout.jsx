@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-
-// KISS: inline simple theme names here (matches `src/index.css`)
-const LIGHT = "light";
-const DIM = "dim";
-const DEFAULT_THEME = LIGHT;
+import { THEMES, DEFAULT_THEME } from "../lib/theme";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,16 +10,16 @@ const Layout = ({ children }) => {
   const [theme, setTheme] = useState(DEFAULT_THEME);
 
   const toggleTheme = () => {
-    const newTheme = theme === DIM ? LIGHT : DIM;
+    const newTheme = theme === THEMES.DIM ? THEMES.LIGHT : THEMES.DIM;
     setTheme(newTheme);
 
     localStorage.setItem("theme", newTheme);
-    document.querySelector("body").setAttribute("data-theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || DEFAULT_THEME;
-    const allowed = [LIGHT, DIM];
+    const allowed = Object.values(THEMES);
     const active = allowed.includes(savedTheme) ? savedTheme : DEFAULT_THEME;
     setTheme(active);
     document.documentElement.setAttribute("data-theme", active);

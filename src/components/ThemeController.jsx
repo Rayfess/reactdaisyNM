@@ -11,9 +11,9 @@ const ThemeController = ({
         {/* this hidden checkbox controls the state */}
         <input
           type="checkbox"
-          checked={currentTheme === "dim"}
+          checked={currentTheme === THEMES.DIM}
           className="theme-controller"
-          onChange={onTheme}
+          onChange={() => onTheme()}
           aria-label="Toggle theme"
         />
         {/* sun icon */}
