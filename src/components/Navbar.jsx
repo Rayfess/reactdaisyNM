@@ -1,37 +1,62 @@
-import { Sidebar, SidebarController } from "./Sidebar";
 import ThemeController from "./ThemeController";
 
-const Navbar = () => {
+const Navbar = ({ onToggle, sidebarOpen, onTheme, currentTheme }) => {
   return (
-    <div className="drawer drawer-end">
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
-        <div className="navbar bg-base-100 fixed py-2 z-50 shadow-sm w-full">
-          <div className="mx-2 flex-1 px-2">
-            <a className="btn btn-ghost text-primary font-bold text-3xl">
-              LearnBy DOING
-            </a>
-          </div>
-          <div className="hidden flex-none lg:flex items-center">
-            <ul className="menu menu-horizontal space-x-5 px-5 items-center">
-              <li>
-                <a className="btn btn-ghost font-normal text-lg">Services</a>
-              </li>
-              <li>
-                <a className="btn btn-ghost font-normal text-lg">Project</a>
-              </li>
-              <li>
-                <a className="btn btn-ghost font-normal text-lg">Contact Us</a>
-              </li>
-              <ThemeController />
-            </ul>
-            <a className="btn btn-primary text-lg lg:me-5">Get Started</a>
-          </div>
-          <SidebarController />
-        </div>
+    <nav className="navbar bg-base-100 fixed z-50 shadow-sm w-full">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">MyApp</a>
       </div>
-      <Sidebar />
-    </div>
+
+      <div className="hidden lg:flex">
+        <ul className="menu menu-horizontal space-x-2">
+          <li>
+            <a className="btn btn-ghost">Home</a>
+          </li>
+          <li>
+            <a className="btn btn-ghost">About</a>
+          </li>
+          <li>
+            <a className="btn btn-ghost">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <ThemeController onTheme={onTheme} currentTheme={currentTheme} />
+
+      <div className="lg:hidden">
+        <button
+          type="button"
+          className="btn btn-square btn-ghost"
+          onClick={onToggle}
+          aria-label={sidebarOpen ? "Close menu" : "Open menu"}
+          aria-expanded={!!sidebarOpen}
+        >
+          {sidebarOpen ? (
+            // Close icon
+            <svg
+              className="fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 512 512"
+            >
+              <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+            </svg>
+          ) : (
+            // Hamburger icon
+            <svg
+              className="fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 512 512"
+            >
+              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+            </svg>
+          )}
+        </button>
+      </div>
+    </nav>
   );
 };
 
